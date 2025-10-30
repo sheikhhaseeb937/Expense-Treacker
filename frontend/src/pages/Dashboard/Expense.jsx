@@ -69,6 +69,8 @@ const handleDownload = async () => {
     const response = await axiosInstance.get(API_PATHS.EXPENSE.DOWNLOAD_EXPENSE, {
       responseType: "arraybuffer", // Important for Excel
     });
+    console.log(response.data);
+
 
     const blob = new Blob([response.data], {
       type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
