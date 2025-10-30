@@ -2,11 +2,11 @@ import express from "express";
 
 import cors from "cors";
 import dotenv from "dotenv";
-import mongDB from "./config/db.js";
-import router from "./routes/authRoutes.js";
-import incomeRouter from "./routes/incomeRoutes.js";
-import expenseRouter from "./routes/expenseRoutes.js";
-import dashboardRoute from "./routes/dashboardRoutes.js";
+import mongDB from "./src/config/db.js";
+import router from "./src/routes/authRoutes.js";
+import incomeRouter from "./src/routes/incomeRoutes.js";
+import expenseRouter from "./src/routes/expenseRoutes.js";
+import dashboardRoute from "./src/routes/dashboardRoutes.js";
 
 const app = express();
     dotenv.config();
