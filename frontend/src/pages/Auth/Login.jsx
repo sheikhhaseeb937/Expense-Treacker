@@ -47,7 +47,7 @@ const Login = () => {
    
       setTimeout(() => {
         navigate('/dashboard');
-      }, 2000);
+      }, 1000);
 
     } catch (error) {
       const message = error.response?.data?.message || "Something went wrong. Please try again.";
