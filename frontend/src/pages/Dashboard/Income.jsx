@@ -25,7 +25,7 @@ const Income = () => {
     icon: "💰",
   });
 
-  // ✅ Fetch all incomes from backend
+  
   useEffect(() => {
     const fetchIncome = async () => {
       setLoading(true);

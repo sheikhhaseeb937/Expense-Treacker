@@ -12,6 +12,7 @@ import DashboardLayout from './components/dashboard/DashboardLayout.jsx';
 const Root = () => {
   const isAuthenticated = !!localStorage.getItem("token");
   return isAuthenticated ? <Navigate to="/dashboard" /> : <Navigate to="/login" />;
+  
 };
 
 function App() {

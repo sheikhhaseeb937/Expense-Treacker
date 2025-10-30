@@ -22,14 +22,13 @@ const Expense = () => {
     date: "",
   });
 
-  // ✅ Fetch all expenses
+  
   useEffect(() => {
     const fetchExpenses = async () => {
       try {
         const response = await axiosInstance.get(API_PATHS.EXPENSE.GET_ALL_EXPENSE);
         console.log( response.data.expense);
 
-        // assuming backend returns { data: [...] }
         setExpenses(response.data.expense || []);
       } catch (error) {
         console.error("Error fetching expenses:", error);
@@ -39,10 +38,9 @@ const Expense = () => {
     fetchExpenses();
   }, []);
 
-  // ✅ Add new expense
+ 
 
 
-// Add Expense
 const handleAddExpense = async () => {
   if (!newExpense.category || !newExpense.amount || !newExpense.date) {
     toast.error("Please fill all fields!");
@@ -53,7 +51,7 @@ const handleAddExpense = async () => {
     const response = await axiosInstance.post(API_PATHS.EXPENSE.ADD_EXPENSE, newExpense);
     toast.success(response.data.message || "Expense added successfully!");
 
-    // Refresh list
+
     setExpenses((prev) => [...prev, newExpense]);
     setNewExpense({ icon: "💰", category: "", amount: "", date: "" });
     setShowModal(false);
@@ -63,11 +61,10 @@ const handleAddExpense = async () => {
   }
 };
 
-// Download Excel
 const handleDownload = async () => {
   try {
     const response = await axiosInstance.get(API_PATHS.EXPENSE.DOWNLOAD_EXPENSE, {
-      responseType: "arraybuffer", // Important for Excel
+      responseType: "arraybuffer", 
     });
     console.log(response.data);
 
@@ -90,7 +87,7 @@ const handleDownload = async () => {
   }
 };
 
-  // ✅ Prepare data for chart
+  
   const chartData = expenses.map((exp) => ({
     day: exp.date?.slice(5, 10) || "N/A",
     expense: exp.amount || 0,

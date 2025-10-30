@@ -18,13 +18,13 @@ const Login = () => {
 
     if (!validateEmail(email)) {
       setError('Please enter a valid email address.');
-      toast.error('Please enter a valid email address.'); // show toast
+      toast.error('Please enter a valid email address.'); 
       return;
     }
 
     if (!password) {
       setError("Please enter a password!");
-      toast.error("Please enter a password!"); // show toast
+      toast.error("Please enter a password!"); 
       return;
     }
 
@@ -38,13 +38,13 @@ const Login = () => {
 
       const { token, user } = response.data;
 
-      // ✅ Save token and user info
+ 
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
 
-      toast.success("Login successful!"); // show success toast
+      toast.success("Login successful!"); 
 
-      // ✅ Navigate after 200ms
+   
       setTimeout(() => {
         navigate('/dashboard');
       }, 2000);
@@ -52,7 +52,7 @@ const Login = () => {
     } catch (error) {
       const message = error.response?.data?.message || "Something went wrong. Please try again.";
       setError(message);
-      toast.error(message); // show error toast
+      toast.error(message); 
       console.error("❌ Login failed:", error.response?.data || error.message);
     }
   };

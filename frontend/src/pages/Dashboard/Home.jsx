@@ -21,13 +21,13 @@ const Home = () => {
   const [last30DaysIncome, setLast30DaysIncome] = useState([]);
   const [expenseList, setExpenseList] = useState([]);
   const [incomeList, setIncomeList] = useState([]);
-  const [loading, setLoading] = useState(true); // ✅ Loading state
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     const fetchDashboardData = async () => {
       
       try {
-        setLoading(true); // start loading
+        setLoading(true); 
         const response = await axiosInstance.get(API_PATHS.DASHBOARD.GET_DATA);
         const data = response.data;
         console.log("Dashboard API:", data);
@@ -56,14 +56,14 @@ const Home = () => {
       } catch (error) {
         console.error("Error fetching dashboard data:", error);
       } finally {
-        setLoading(false); // stop loading
+        setLoading(false); 
       }
     };
 
     fetchDashboardData();
   }, []);
 
-  // ✅ Simple loader component
+  
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -74,7 +74,7 @@ const Home = () => {
 
   return (
     <div className="space-y-8">
-      {/* Summary Cards */}
+      
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-white p-5 rounded-xl shadow">
           <h3 className="text-gray-500 text-sm">Total Balance</h3>
@@ -96,7 +96,7 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Financial Overview Pie */}
+    
       <div className="bg-white p-5 rounded-xl shadow">
         <h4 className="text-gray-700 font-semibold mb-4">Financial Overview</h4>
         <ResponsiveContainer width="100%" height={250}>
@@ -117,7 +117,7 @@ const Home = () => {
         </ResponsiveContainer>
       </div>
 
-      {/* Expense Section */}
+      
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="bg-white rounded-xl shadow p-5">
           <h4 className="text-gray-700 font-semibold mb-4">Last 30 Days Expense</h4>

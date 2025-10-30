@@ -34,13 +34,13 @@ axiosInstance.interceptors.response.use(
 
     switch (status) {
       case 401:
-        // Unauthorized - token expired or invalid
+   
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         window.location.href = "/login";
         break;
       case 403:
-        // Forbidden - no permission
+      
         console.error("Access forbidden");
         break;
       case 404:

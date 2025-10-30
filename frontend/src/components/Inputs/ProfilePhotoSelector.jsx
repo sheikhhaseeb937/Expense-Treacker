@@ -9,7 +9,7 @@ const ProfilePhotoSelector = ({ image, setImage }) => {
     const file = event.target.files[0];
     if (file) {
       setImage(file);
-      // ✅ Correct method name
+    
       const preview = URL.createObjectURL(file);
       setPreviewUrl(preview);
     }

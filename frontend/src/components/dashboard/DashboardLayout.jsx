@@ -5,8 +5,8 @@ import axiosInstance from "../../Utilis/axiosInstance";
 import { API_PATHS } from "../../Utilis/apiPaths";
 
 const DashboardLayout = ({ children }) => {
-  const [user, setUser] = useState(null);      // Store user info
-  const [loading, setLoading] = useState(true); // Loading state
+  const [user, setUser] = useState(null);      
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getUser = async () => {
@@ -14,12 +14,12 @@ const DashboardLayout = ({ children }) => {
         const response = await axiosInstance.get(API_PATHS.AUTH.GET_USER_INFO);
         console.log("User info:", response.data);
 
-        // Extract the user object from API response
+        
         setUser(response.data.user);
       } catch (error) {
         console.error("Error fetching user info:", error);
       } finally {
-        setLoading(false); // Done loading
+        setLoading(false); 
       }
     };
 

@@ -16,13 +16,13 @@ const Signup = () => {
 
   const navigate = useNavigate();
 
-  //handlesignup form
+  
   const handleSignup = async (e) => {
     e.preventDefault();
 
     if (!fullname) {
       setError("Please Enter a name");
-      toast.error("Please Enter a name"); // show toast
+      toast.error("Please Enter a name"); 
       return;
     }
     if (!email) {
@@ -38,7 +38,7 @@ const Signup = () => {
 
     setError("");
 
-    //signup api 
+
     try {
       const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
         fullName: fullname,
@@ -48,14 +48,14 @@ const Signup = () => {
       console.log(response);
 
       if (response.data) {
-        toast.success("Signup successful!"); // show success toast
+        toast.success("Signup successful!"); 
        setTimeout(() => {
          navigate("/login");
        }, 2000);
       }
     } catch (error) {
       console.log(error);
-      toast.error(error.response?.data?.message || "Signup failed!"); // show API error
+      toast.error(error.response?.data?.message || "Signup failed!"); 
     }
   };
 
