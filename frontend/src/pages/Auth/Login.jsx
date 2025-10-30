@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import Authlayout from '../../components/laypout/Authlayout';
+import Authlayout from '../../components/laypout/AuthLayout';
 import { Link, useNavigate } from 'react-router-dom';
 import Input from '../../components/Inputs/Inputs';
 import { validateEmail } from '../../Utilis/helper.js';
 import axiosInstance from '../../Utilis/axiosInstance.js';
 import { API_PATHS } from '../../Utilis/apiPaths.js';
-import { toast, Toaster } from 'react-hot-toast'; // ✅ Import react-hot-toast
-
+import { toast, Toaster } from 'react-hot-toast'; 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

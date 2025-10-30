@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Authlayout from '../../components/laypout/Authlayout';
+import Authlayout from '../../components/laypout/AuthLayout';
 import { Link, useNavigate } from 'react-router-dom';
 import Input from '../../components/Inputs/Inputs';
-import ProfilePhotoSelector from '../../components/Inputs/ProfilePhotoSelector.jsx';
+import ProfilePhotoSelector from '../../components/Inputs/ProfilePhotoSelector';
 import { API_PATHS } from '../../Utilis/apiPaths.js';
 import axiosInstance from '../../Utilis/axiosInstance.js';
 import { toast, Toaster } from 'react-hot-toast'; 
