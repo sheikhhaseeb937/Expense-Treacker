@@ -92,8 +92,8 @@ export const downloadExpenseExcel = async (req, res) => {
     XLSX.utils.book_append_sheet(workbook, worksheet, "Expenses");
 
     // 4️⃣ Save to temp file path
-    const filePath = path.resolve("expense_details.xlsx");
-    XLSX.writeFile(workbook, filePath);
+const filePath = path.join("/tmp", "expense_details.xlsx");
+XLSX.writeFile(workbook, filePath);
 
     // 5️⃣ Send file as download
     res.download(filePath, "expense_details.xlsx", (err) => {
