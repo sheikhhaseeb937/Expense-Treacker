@@ -1,5 +1,5 @@
 import Expense from "../model/Expense.js";
-import XLSX from "xlsx";
+// import XLSX from "xlsx";
 
 
 
@@ -67,33 +67,33 @@ export const deleteExpense = async(req,res)=>{
   }
 }
 
-export const downloadExpenseExcel = async (req, res) => {
-  try {
-    const userId = req.user.id;
+// export const downloadExpenseExcel = async (req, res) => {
+//   try {
+//     const userId = req.user.id;
 
-    const expenses = await Expense.find({ userId }).sort({ date: -1 });
-    if (!expenses.length) {
-      return res.status(404).json({ message: "No expense records found" });
-    }
+//     const expenses = await Expense.find({ userId }).sort({ date: -1 });
+//     if (!expenses.length) {
+//       return res.status(404).json({ message: "No expense records found" });
+//     }
 
-    const data = expenses.map((item) => ({
-      Category: item.category || item.source,
-      Amount: item.amount,
-      Date: new Date(item.date).toLocaleDateString(),
-    }));
+//     const data = expenses.map((item) => ({
+//       Category: item.category || item.source,
+//       Amount: item.amount,
+//       Date: new Date(item.date).toLocaleDateString(),
+//     }));
 
-    const workbook = XLSX.utils.book_new();
-    const worksheet = XLSX.utils.json_to_sheet(data);
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Expenses");
+//     const workbook = XLSX.utils.book_new();
+//     const worksheet = XLSX.utils.json_to_sheet(data);
+//     XLSX.utils.book_append_sheet(workbook, worksheet, "Expenses");
 
-    // ✅ Write to /tmp folder
+//     // ✅ Write to /tmp folder
    
-    XLSX.writeFile(workbook, "expense_details.xlsx");
+//     XLSX.writeFile(workbook, "expense_details.xlsx");
 
-    // ✅ Send file as download
-    res.download( "expense_details.xlsx");
-  } catch (error) {
-    console.error("Error generating Excel:", error);
-    res.status(500).json({ message: "Error generating Excel file" });
-  }
-};
+//     // ✅ Send file as download
+//     res.download( "expense_details.xlsx");
+//   } catch (error) {
+//     console.error("Error generating Excel:", error);
+//     res.status(500).json({ message: "Error generating Excel file" });
+//   }
+// };
