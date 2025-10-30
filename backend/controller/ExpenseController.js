@@ -86,16 +86,12 @@ export const downloadExpenseExcel = async (req, res) => {
     const worksheet = XLSX.utils.json_to_sheet(data);
     XLSX.utils.book_append_sheet(workbook, worksheet, "Expenses");
 
-    // Generate Excel file as buffer
-    const excelBuffer = XLSX.write(workbook, { type: "buffer", bookType: "xlsx" });
+    // ✅ Write to /tmp folder
+   
+    XLSX.writeFile(workbook, "expense_details.xlsx");
 
-    // Set headers to trigger download
-    res.setHeader("Content-Disposition", "attachment; filename=expense_details.xlsx");
-    res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-
-    // Send buffer directly
-    res.send(excelBuffer);
-
+    // ✅ Send file as download
+    res.download( "expense_details.xlsx");
   } catch (error) {
     console.error("Error generating Excel:", error);
     res.status(500).json({ message: "Error generating Excel file" });
