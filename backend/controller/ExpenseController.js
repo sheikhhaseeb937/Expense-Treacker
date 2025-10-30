@@ -70,41 +70,32 @@ export const deleteExpense = async(req,res)=>{
 export const downloadExpenseExcel = async (req, res) => {
   try {
     const userId = req.user.id;
-    console.log("User ID:", userId);
 
-    // 1️⃣ Fetch expenses for this user
     const expenses = await Expense.find({ userId }).sort({ date: -1 });
-
     if (!expenses.length) {
       return res.status(404).json({ message: "No expense records found" });
     }
 
-    // 2️⃣ Convert to JSON for Excel
     const data = expenses.map((item) => ({
       Category: item.category || item.source,
       Amount: item.amount,
       Date: new Date(item.date).toLocaleDateString(),
     }));
 
-    // 3️⃣ Create workbook
     const workbook = XLSX.utils.book_new();
     const worksheet = XLSX.utils.json_to_sheet(data);
     XLSX.utils.book_append_sheet(workbook, worksheet, "Expenses");
 
-    // 4️⃣ Save to temp file path
-const filePath = path.join("/tmp", "expense_details.xlsx");
-XLSX.writeFile(workbook, filePath);
+    // Generate Excel file as buffer
+    const excelBuffer = XLSX.write(workbook, { type: "buffer", bookType: "xlsx" });
 
-    // 5️⃣ Send file as download
-    res.download(filePath, "expense_details.xlsx", (err) => {
-      if (err) {
-        console.error("Error sending file:", err);
-        res.status(500).json({ message: "Error sending file" });
-      }
+    // Set headers to trigger download
+    res.setHeader("Content-Disposition", "attachment; filename=expense_details.xlsx");
+    res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 
-      // 6️⃣ Delete after sending
-      fs.unlinkSync(filePath);
-    });
+    // Send buffer directly
+    res.send(excelBuffer);
+
   } catch (error) {
     console.error("Error generating Excel:", error);
     res.status(500).json({ message: "Error generating Excel file" });
