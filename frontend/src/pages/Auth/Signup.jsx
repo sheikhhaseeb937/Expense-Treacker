@@ -22,6 +22,7 @@ const Signup = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
 
+  
     if (!fullname) {
       setError("Please Enter a name");
       toast.error("Please Enter a name"); 
@@ -39,7 +40,7 @@ const Signup = () => {
     }
 
     setError("");
-
+setLoading(true)
 
     try {
       const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
@@ -51,13 +52,16 @@ const Signup = () => {
 
       if (response.data) {
       
-    setLoading(false)
+    setLoading(true)
          navigate("/login");
      
       }
     } catch (error) {
       console.log(error);
       toast.error(error.response?.data?.message || "Signup failed!"); 
+      
+    }finally {
+      setLoading(false);
     }
   };
 
@@ -74,7 +78,7 @@ const Signup = () => {
           <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
             <Input
               value={fullname}
-              onchange={({ target }) => setFullname(target.value)}
+              onChange={({ target }) => setFullname(target.value)}
               label="Full Name"
               placeholder="John"
               type="text"
@@ -82,7 +86,7 @@ const Signup = () => {
 
             <Input
               value={email}
-              onchange={({ target }) => setEmail(target.value)}
+              onChange={({ target }) => setEmail(target.value)}
               label="Email Address"
               placeholder="john@example.com"
               type="text"
@@ -91,7 +95,7 @@ const Signup = () => {
             <div className='col-span-2'>
               <Input
                 value={password}
-                onchange={({ target }) => setPassword(target.value)}
+                onChange={({ target }) => setPassword(target.value)}
                 label="Password"
                 placeholder="Min 8 Characters"
                 type="password"
@@ -102,7 +106,8 @@ const Signup = () => {
           {error && <p className='text-red-500 text-xs pb-2.5'>{error}</p>}
 
           <button disabled={loading}  type='submit' className='btn-primary'>
-            SIGN UP
+         
+              {loading ? 'LOADING...' : 'SIGN UP'} 
           </button>
 
           <p className='text-[13px] text-slate-800 mt-3'>

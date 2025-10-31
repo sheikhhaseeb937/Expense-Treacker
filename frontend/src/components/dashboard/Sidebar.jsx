@@ -1,7 +1,7 @@
 import React from "react";
 import { LayoutDashboard, TrendingUp, Wallet, LogOut } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { toast, Toaster } from "react-hot-toast";
+import {  Toaster } from "react-hot-toast";
 const Sidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();

@@ -147,7 +147,7 @@ const handleDownload = async () => {
                 <span className="font-medium text-gray-700">{exp.category}</span>
               </div>
               <div className="flex items-center gap-8">
-                <span className="text-gray-600">${exp.amount}</span>
+                <span className="text-gray-600 text-red-500">${exp.amount}</span>
                 <span className="text-gray-400 text-sm">
                   {exp.date?.slice(0, 10)}
                 </span>

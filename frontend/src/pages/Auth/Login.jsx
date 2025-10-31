@@ -6,32 +6,35 @@ import { validateEmail } from '../../Utilis/helper.js';
 import axiosInstance from '../../Utilis/axiosInstance.js';
 import { API_PATHS } from '../../Utilis/apiPaths.js';
 import { toast, Toaster } from 'react-hot-toast'; 
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false); 
 
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setError("");
 
     if (!validateEmail(email)) {
-      setError('Please enter a valid email address.');
-      toast.error('Please enter a valid email address.'); 
+      const message = 'Please enter a valid email address.';
+      setError(message);
+      toast.error(message); 
       return;
     }
 
     if (!password) {
-      setError("Please enter a password!");
-      toast.error("Please enter a password!"); 
+      const message = "Please enter a password!";
+      setError(message);
+      toast.error(message); 
       return;
     }
 
-    setError("");
-setLoading(true)
+    setIsLoading(true);
+
     try {
       const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN, {
         email,
@@ -40,29 +43,29 @@ setLoading(true)
 
       const { token, user } = response.data;
 
- 
+      // 1. Token aur User Data ko store karein
       localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
+      
+      // 2. User object mein password nahi aana chahiye (Backend se ensure karein)
+      localStorage.setItem("user", JSON.stringify(user)); 
 
-    
+      toast.success("Login successful!");
 
-
-setLoading(false)
-        navigate('/dashboard');
-        
-  
+      navigate('/dashboard');
 
     } catch (error) {
       const message = error.response?.data?.message || "Something went wrong. Please try again.";
+      console.error("❌ Login failed:", error.response?.data || error.message);
       setError(message);
       toast.error(message); 
-      console.error("❌ Login failed:", error.response?.data || error.message);
+    } finally {
+      setIsLoading(false); // ⬅️ Stop loading
     }
   };
 
   return (
     <Authlayout>
-          <Toaster />
+      <Toaster />
       <div className='lg:w[70%] h-3/4 md:h-full flex flex-col justify-center'>
         <h3 className='text-xl font-semibold text-black'>Welcome Back</h3>
         <p className='text-xs text-slate-700 mt-[5px] mb-6'>
@@ -72,7 +75,8 @@ setLoading(false)
         <form onSubmit={handleLogin}>
           <Input
             value={email}
-            onchange={({ target }) => setEmail(target.value)}
+
+            onChange={({ target }) => setEmail(target.value)} 
             label="Email Address"
             placeholder="john@example.com"
             type="text"
@@ -80,7 +84,8 @@ setLoading(false)
 
           <Input
             value={password}
-            onchange={({ target }) => setPassword(target.value)}
+       
+            onChange={({ target }) => setPassword(target.value)}
             label="Password"
             placeholder="Min 8 Characters"
             type="password"
@@ -88,8 +93,12 @@ setLoading(false)
 
           {error && <p className='text-red-500 text-xs pb-2.5'>{error}</p>}
 
-          <button disabled={loading} type='submit' className='btn-primary'>
-            LOGIN
+          <button 
+            type='submit' 
+            className='btn-primary' 
+            disabled={isLoading}
+          >
+            {isLoading ? 'LOADING...' : 'LOGIN'} 
           </button>
 
           <p className='text-[13px] text-slate-800 mt-3'>
