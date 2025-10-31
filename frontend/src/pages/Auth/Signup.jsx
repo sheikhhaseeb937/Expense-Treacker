@@ -6,6 +6,7 @@ import ProfilePhotoSelector from '../../components/Inputs/ProfilePhotoSelector';
 import { API_PATHS } from '../../Utilis/apiPaths.js';
 import axiosInstance from '../../Utilis/axiosInstance.js';
 import { toast, Toaster } from 'react-hot-toast'; 
+import { fullName, validateEmail } from '../../Utilis/helper.js';
 
 const Signup = () => {
   const [profilePic, setProfilePic] = useState(null);
@@ -23,12 +24,12 @@ const Signup = () => {
     e.preventDefault();
 
   
-    if (!fullname) {
+    if (!fullName(fullname)) {
       setError("Please Enter a name");
       toast.error("Please Enter a name"); 
-      return;
+      return; 
     }
-    if (!email) {
+    if (!validateEmail(email)) {
       setError("Please Enter an Email");
       toast.error("Please Enter an Email");
       return;

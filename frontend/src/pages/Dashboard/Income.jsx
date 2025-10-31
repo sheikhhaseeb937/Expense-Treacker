@@ -29,7 +29,7 @@ const Income = () => {
   
   useEffect(() => {
     const fetchIncome = async () => {
-      setLoading(true);
+   
       try {
         const response = await axiosInstance.get(API_PATHS.INCOME.GET_ALL_INCOME);
         console.log("Income Data:", response.data.incomes);
@@ -53,9 +53,7 @@ const Income = () => {
         setIncomeData(chartData);
       } catch (error) {
         console.error("Error fetching income:", error);
-      } finally {
-        setLoading(false);
-      }
+      } 
     };
 
     fetchIncome();
@@ -67,7 +65,7 @@ const Income = () => {
 // Add Income
 const handleAddIncome = async (e) => {
   e.preventDefault();
-
+setLoading(true);
   if (!formData.source || !formData.amount || !formData.date) {
     toast.error("Please fill in all fields");
     return;
@@ -78,7 +76,8 @@ toast.error("Enter a postive number")
   }else{
  try {
     const response = await axiosInstance.post(API_PATHS.INCOME.ADD_INCOME, formData);
-    toast.success(response.data.message || "Income added successfully!");
+    // toast.success(response.data.message || "Income added successfully!");
+    console.log((response.data));
 
     const newIncome = {
       id: incomeList.length + 1,
@@ -112,7 +111,9 @@ toast.error("Enter a postive number")
   } catch (error) {
     console.error("Error adding income:", error);
     toast.error("Something went wrong while adding income!");
-  }
+  } finally {
+        setLoading(false);
+      }
   }
 
  
@@ -302,10 +303,12 @@ const handleDownload = async () => {
 
               {/* Submit */}
               <button
+              disabled={loading}
                 type="submit"
                 className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg mt-4 transition"
               >
-                Add Income
+             
+                {loading ? "Loading ..." : "Add Income"}
               </button>
             </form>
           </div>

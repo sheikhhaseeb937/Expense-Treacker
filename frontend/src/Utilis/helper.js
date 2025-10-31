@@ -8,3 +8,9 @@ const regex = /^[0-9]*\.?[0-9]+$/;
 
   return regex.test(inputValue);
 };
+
+export const fullName = (fullName) => {
+const regex = /^[a-zA-Z\s]+$/;
+
+  return regex.test(fullName);
+};

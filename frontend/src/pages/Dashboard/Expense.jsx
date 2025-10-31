@@ -15,6 +15,7 @@ import { Toaster } from "react-hot-toast";
 const Expense = () => {
   const [showModal, setShowModal] = useState(false);
   const [expenses, setExpenses] = useState([]);
+  const [loading, setLoading] = useState(false)
   const [newExpense, setNewExpense] = useState({
     icon: "💰",
     category: "",
@@ -46,7 +47,7 @@ const handleAddExpense = async () => {
     toast.error("Please fill all fields!");
     return;
   }
-
+setLoading(true)
   try {
     const response = await axiosInstance.post(API_PATHS.EXPENSE.ADD_EXPENSE, newExpense);
     toast.success(response.data.message || "Expense added successfully!");
@@ -58,6 +59,8 @@ const handleAddExpense = async () => {
   } catch (error) {
     console.error("Error adding expense:", error);
     toast.error("Something went wrong while adding expense!");
+  } finally{
+    setLoading(false)
   }
 };
 
@@ -222,10 +225,12 @@ const handleDownload = async () => {
                 Cancel
               </button>
               <button
+              disabled={loading}
                 onClick={handleAddExpense}
                 className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
               >
-                Add Expense
+                {loading ? "Loading ..." : "Add Expense"}
+               
               </button>
             </div>
           </div>
