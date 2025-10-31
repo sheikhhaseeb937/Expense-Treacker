@@ -15,12 +15,12 @@ const Sidebar = () => {
 
 
 const handleLogout = () => {
-  toast.success("Logging out...", { duration: 2000 }); 
 
-  setTimeout(() => {
+
+
     localStorage.clear();
     navigate("/login");
-  }, 2000);
+
 };
 
 

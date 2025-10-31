@@ -10,6 +10,8 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
 
   const navigate = useNavigate();
 
@@ -29,7 +31,7 @@ const Login = () => {
     }
 
     setError("");
-
+setLoading(true)
     try {
       const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN, {
         email,
@@ -42,12 +44,13 @@ const Login = () => {
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
 
-      toast.success("Login successful!"); 
+    
 
-   
-      setTimeout(() => {
+
+setLoading(false)
         navigate('/dashboard');
-      }, 1000);
+        
+  
 
     } catch (error) {
       const message = error.response?.data?.message || "Something went wrong. Please try again.";
@@ -85,7 +88,7 @@ const Login = () => {
 
           {error && <p className='text-red-500 text-xs pb-2.5'>{error}</p>}
 
-          <button type='submit' className='btn-primary'>
+          <button disabled={loading} type='submit' className='btn-primary'>
             LOGIN
           </button>
 

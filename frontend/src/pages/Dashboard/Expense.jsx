@@ -140,6 +140,7 @@ const handleDownload = async () => {
 
         <div className="divide-y divide-gray-100">
           {expenses.map((exp, index) => (
+         
             <div key={index} className="flex items-center justify-between py-3">
               <div className="flex items-center gap-3">
                 <span className="text-2xl">{exp.icon}</span>

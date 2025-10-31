@@ -12,6 +12,7 @@ import axiosInstance from "../../Utilis/axiosInstance";
 import { API_PATHS } from "../../Utilis/apiPaths";
 import { Toaster } from "react-hot-toast";
 import { toast } from "react-hot-toast";
+import { inputIncome } from "../../Utilis/helper";
 const Income = () => {
   const [showModal, setShowModal] = useState(false);
   const [incomeData, setIncomeData] = useState([]);
@@ -71,8 +72,11 @@ const handleAddIncome = async (e) => {
     toast.error("Please fill in all fields");
     return;
   }
+  if(!inputIncome(formData.amount)){
 
-  try {
+toast.error("Enter a postive number")
+  }else{
+ try {
     const response = await axiosInstance.post(API_PATHS.INCOME.ADD_INCOME, formData);
     toast.success(response.data.message || "Income added successfully!");
 
@@ -109,6 +113,9 @@ const handleAddIncome = async (e) => {
     console.error("Error adding income:", error);
     toast.error("Something went wrong while adding income!");
   }
+  }
+
+ 
 };
 
 // Download Income Excel

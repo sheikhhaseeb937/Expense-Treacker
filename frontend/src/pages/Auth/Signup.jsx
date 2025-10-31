@@ -13,6 +13,8 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
 
   const navigate = useNavigate();
 
@@ -48,10 +50,10 @@ const Signup = () => {
       console.log(response);
 
       if (response.data) {
-        toast.success("Signup successful!"); 
-       setTimeout(() => {
+      
+    setLoading(false)
          navigate("/login");
-       }, 1000);
+     
       }
     } catch (error) {
       console.log(error);
@@ -99,7 +101,7 @@ const Signup = () => {
 
           {error && <p className='text-red-500 text-xs pb-2.5'>{error}</p>}
 
-          <button type='submit' className='btn-primary'>
+          <button disabled={loading}  type='submit' className='btn-primary'>
             SIGN UP
           </button>
 
