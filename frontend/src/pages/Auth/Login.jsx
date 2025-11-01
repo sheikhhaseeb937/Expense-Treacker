@@ -49,7 +49,7 @@ const Login = () => {
       // 2. User object mein password nahi aana chahiye (Backend se ensure karein)
       localStorage.setItem("user", JSON.stringify(user)); 
 
-      toast.success("Login successful!");
+      // toast.success("Login successful!");
 
       navigate('/dashboard');
 
