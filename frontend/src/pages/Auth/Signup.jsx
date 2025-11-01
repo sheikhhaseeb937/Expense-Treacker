@@ -23,7 +23,7 @@ const Signup = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
 
-  
+
     if (!fullName(fullname)) {
       setError("Please Enter a name");
       toast.error("Please Enter a name"); 
@@ -65,7 +65,7 @@ setLoading(true)
       setLoading(false);
     }
   };
-
+console.log(profilePic);
   return (
     <Authlayout>
           <Toaster />

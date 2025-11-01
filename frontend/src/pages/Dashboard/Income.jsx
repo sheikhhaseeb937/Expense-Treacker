@@ -73,6 +73,7 @@ setLoading(true);
   if(!inputIncome(formData.amount)){
 
 toast.error("Enter a postive number")
+setLoading(false)
   }else{
  try {
     const response = await axiosInstance.post(API_PATHS.INCOME.ADD_INCOME, formData);
